@@ -10,22 +10,27 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
+    //manual configuration for admin access 
     {
-           Schema::create('users', function (Blueprint $table) {
+        //USERS
+        Schema::create('users', function (Blueprint $table) {
         $table->id(); // ID (primary key)
         $table->string('username'); // user
         $table->string('email')->unique(); // email
         $table->string('password'); // password
         $table->string('interest')->nullable(); // interest
+        $table->enum('role', ['ADMIN' , 'CLIENT'])->default('CLIENT');; 
         $table->timestamps();
+       
     });
     }
+    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('users');
     }
 };
