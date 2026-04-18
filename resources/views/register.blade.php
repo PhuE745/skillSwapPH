@@ -40,7 +40,7 @@
             </div>
 
             <!-- Register Form -->
-            <form method="POST">
+             <form method="POST" action="/regPOST">
                 @csrf
 
                 <div class="input-group">

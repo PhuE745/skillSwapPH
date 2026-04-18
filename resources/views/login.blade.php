@@ -46,7 +46,9 @@
             </div>
 
             <!-- Login Form -->
-            <form>
+            <form method="POST" action="/logGet">
+                @csrf
+
                 <div class="input-group">
                     <label>Email Address</label>
                     <input type="email" placeholder="hello@skillswap.ph">

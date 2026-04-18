@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class RegisterController extends Controller
+class registerController extends Controller
 {
     // Show registration form
     public function showRegisterForm()
@@ -30,14 +30,26 @@ class RegisterController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'interest' => $request->interest,
-            'role' => $request->role,
+            'role' => $request->role 
+        ]
+        );
+
+          $user = User::createInterest([
+            'interest' => $request->interest
         ]);
 
         // Automatically login after registration
         Auth::login($user);
 
         // Redirect to dashboard
-        return redirect('/dashboard')->with('success', 'Welcome to SkillSwap PH!');
+        return redirect('/client')->with('success', 'Welcome to SkillSwap PH!');
     }
+
+    public function setInterest(Request $request){
+
+      $user = User::createInterest([
+            'interest' => $request->interest
+        ]);
+    }
+
 }

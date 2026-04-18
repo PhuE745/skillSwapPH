@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class loginController extends Controller
 {
@@ -30,7 +28,7 @@ class loginController extends Controller
         if (Auth::attempt($credentials, $request->remember)) {
             // Login successful
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
+            return redirect()->intended('/client')->with('success', 'Welcome back!');
         }
 
         // Login failed
