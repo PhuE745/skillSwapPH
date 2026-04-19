@@ -5,11 +5,9 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\registerController;
 
 // LOGIN
-Route::get('/logGet', [loginController::class, 'showLoginForm']);   // Show form
 Route::post('/logPost', [loginController::class, 'login']);         // Submit form
 
 // REGISTER  
-Route::get('/regGet', [registerController::class, 'showRegisterForm']); // Show form
 Route::post('/regPost', [registerController::class, 'register']);       // Submit form
 
 Route::get('/', function () {

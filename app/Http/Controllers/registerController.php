@@ -10,14 +10,11 @@ use App\Models\User;
 class registerController extends Controller
 {
     // Show registration form
-    public function showRegisterForm()
-    {
-        return view('auth.register');
-    }
-
     // Handle registration request
     public function register(Request $request)
     {
+
+       
         // Validate input
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
@@ -30,26 +27,16 @@ class registerController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role 
+            //'role' => $request->role,
+            'interest' => $request->interest 
         ]
         );
-
-          $user = User::createInterest([
-            'interest' => $request->interest
-        ]);
 
         // Automatically login after registration
         Auth::login($user);
 
         // Redirect to dashboard
         return redirect('/client')->with('success', 'Welcome to SkillSwap PH!');
-    }
-
-    public function setInterest(Request $request){
-
-      $user = User::createInterest([
-            'interest' => $request->interest
-        ]);
     }
 
 }

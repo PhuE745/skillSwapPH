@@ -40,12 +40,21 @@
             </div>
 
             <!-- Register Form -->
-             <form method="POST" action="/regPOST">
+             <form method="POST" action="/regPost">
                 @csrf
+
+                    @if($errors->any())
+                        <div style="color: red;">
+                            @foreach($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+
 
                 <div class="input-group">
                     <label>Full Name</label>
-                    <input type="text" name="name" placeholder="Juan Dela Cruz" value="{{ old('name') }}" required>
+                    <input type="text" name="username" placeholder="Juan Dela Cruz" value="{{ old('username') }}" required>
                 </div>
 
                 <div class="input-group">

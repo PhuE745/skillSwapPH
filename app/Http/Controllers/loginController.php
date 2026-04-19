@@ -7,36 +7,37 @@ use Illuminate\Support\Facades\Auth;
 
 class loginController extends Controller
 {
-    // Show login form
-    public function showLoginForm()
-    {
-        return view('/');
-    }
-
     // Handle login request
-    public function login(Request $request)
-    {
-        // Validate input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+  public function login(Request $request)
+{
+    // Validate input
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        // Attempt login with email and password
-        $credentials = $request->only('email', 'password');
+    // Attempt login with email and password
+    $credentials = $request->only('email', 'password');
+    
+    if (Auth::attempt($credentials, $request->remember)) {
+        // Login successful
+        $request->session()->regenerate();
         
-        if (Auth::attempt($credentials, $request->remember)) {
-            // Login successful
-            $request->session()->regenerate();
-            return redirect()->intended('/client')->with('success', 'Welcome back!');
+        // Check user role
+        $user = Auth::user();
+        
+        if ($user->role === 'ADMIN') {
+            return redirect()->intended('/admin')->with('success', 'Welcome Admin!');
         }
-
-        // Login failed
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        
+        return redirect()->intended('/client')->with('success', 'Welcome back!');
     }
 
+    // Login failed
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
+}
     // Handle logout
     public function logout(Request $request)
     {
