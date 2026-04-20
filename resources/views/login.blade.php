@@ -46,7 +46,7 @@
             </div>
 
             <!-- Login Form -->
-            <form method="POST" action="/logPost">
+            <form method="GET" action="/logPost">
                 @csrf
 
                 <div class="input-group">
