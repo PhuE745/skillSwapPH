@@ -49,6 +49,14 @@
             <form method="POST" action="/logPost">
                 @csrf
 
+                 @if($errors->any())
+                        <div style="color: red;">
+                            @foreach($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+
                 <div class="input-group">
                     <label>Email Address</label>
                     <input type="email" placeholder="hello@skillswap.ph">

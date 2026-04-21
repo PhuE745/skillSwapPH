@@ -10,6 +10,8 @@ class loginController extends Controller
     // Handle login request
   public function login(Request $request)
 {
+
+    dd("Controller reached!", $request->all());
     // Validate input
     $request->validate([
         'email' => 'required|email',
@@ -20,6 +22,9 @@ class loginController extends Controller
     $credentials = $request->only('email', 'password');
     
     if (Auth::attempt($credentials, $request->remember)) {
+        
+        dd($credentials);  // ← ADD THIS
+    
         // Login successful
         $request->session()->regenerate();
         
@@ -27,10 +32,10 @@ class loginController extends Controller
         $user = Auth::user();
         
         if ($user->role === 'ADMIN') {
-            return redirect()->intended('/admin')->with('success', 'Welcome Admin!');
+            return redirect('/admin');
         }
         
-        return redirect()->intended('/client')->with('success', 'Welcome back!');
+        return redirect('/client');
     }
 
     // Login failed
